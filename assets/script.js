@@ -3,50 +3,100 @@
 // in the html.
 function init() {
     var hour9 = localStorage.getItem("hour-9")
-    $("#hour-9").text(hour9)
+    $("#hour-9 > .description").text(hour9)
     var hour10 = localStorage.getItem("hour-10")
-    $("#hour-10").text(hour10)
+    $("#hour-10 > .description").text(hour10)
     var hour11 = localStorage.getItem("hour-11")
-    $("#hour-11").text(hour11)
-    var hou12 = localStorage.getItem("hour-12")
-    $("#hour-12").text(hour12)
-    var hou13 = localStorage.getItem("hour-13")
-    $("#hour-13").text(hour13)
-    var hou14 = localStorage.getItem("hour-14")
-    $("#hour-14").text(hour14)
-    var hou15 = localStorage.getItem("hour-15")
-    $("#hour-15").text(hour15)
-    var hou16 = localStorage.getItem("hour-16")
-    $("#hour-16").text(hour16)
-    var hou17 = localStorage.getItem("hour-17")
-    $("#hour-17").text(hour17)
-
+    $("#hour-11 > .description").text(hour11)
+    var hour12 = localStorage.getItem("hour-12")
+    $("#hour-12 > .description").text(hour12)
+    var hour13 = localStorage.getItem("hour-13")
+    $("#hour-13 > .description").text(hour13)
+    var hour14 = localStorage.getItem("hour-14")
+    $("#hour-14 > .description").text(hour14)
+    var hour15 = localStorage.getItem("hour-15")
+    $("#hour-15 > .description").text(hour15)
+    var hour16 = localStorage.getItem("hour-16")
+    $("#hour-16 > .description").text(hour16)
+    var hour17 = localStorage.getItem("hour-17")
+    $("#hour-17 > .description").text(hour17)
 }
 $(function () {
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
+
   });
- function saveEvent(event){
+
+  function saveEvent(event){
+    var hour = event.target.parentElement;
     var textArea = event.target.parentElement.querySelector(".description");
-    localStorage.setItem(textArea.id, textArea.value);
+    localStorage.setItem(hour.getAttribute("id"), textArea.value);
 
  }
 
   $(".btn").on("click", saveEvent)
  init();
+
+ var currentHour = new Date().getHours();
+//  var timeBlocks = [
+//     { hour9: 9 },
+//     { hour10: 10 },
+//     { hour11: 11 },
+//     { hour12: 12 },
+//     { hour13: 13 },
+//     { hour14: 14 },
+//     { hour15: 15 },
+//     { hour16: 16 },
+//     { hour17: 17 },
+//  };
+
+ for (var i = 9; i <= 17; i++) {
+  
+
+    var timeBlockElement = document.getElementById('hour-' + i);
+  
+
+    timeBlockElement.classList.remove('past', 'present', 'future');
+  
+
+    if (i < currentHour) {
+      timeBlockElement.classList.add('past');
+    } else if (i === currentHour) {
+      timeBlockElement.classList.add('present');
+    } else {
+      timeBlockElement.classList.add('future');
+    }
+  }
+
+
+// var storedInput = localStorage
+
+
+// if (storedInput) {
+
+//   // var storedInput = JSON.parse(storedInput);
+
+
+//   for (var key in storedInput) {
+//     if (storedInput.hasOwnProperty(key)) {
+      
+//       var textarea = document.querySelector("#" + key + " > .description");
+
+      
+//       textarea.value = storedInput[key];
+//     }
+//   }
+// }
+
+
+
+
+
+
+
+
+
+  
+
+ var today = dayjs();
+ var formatTime = today.format("MMM D, YYYY")
+ $('#currentDay').text(formatTime);
+
